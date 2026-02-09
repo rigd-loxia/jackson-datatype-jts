@@ -1,12 +1,13 @@
 package com.bedatadriven.jackson.datatype.jts.parsers;
 
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.MultiPolygon;
 import com.vividsolutions.jts.geom.Polygon;
 
 import static com.bedatadriven.jackson.datatype.jts.GeoJson.COORDINATES;
+
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.JsonNode;
 
 /**
  * Created by mihaildoronin on 11/11/15.
@@ -33,7 +34,7 @@ public class MultiPolygonParser extends BaseParser implements GeometryParser<Mul
     }
 
     @Override
-    public MultiPolygon geometryFromJson(JsonNode node) throws JsonMappingException {
+    public MultiPolygon geometryFromJson(JsonNode node) throws JacksonException {
         return multiPolygonFromJson(node);
     }
 }

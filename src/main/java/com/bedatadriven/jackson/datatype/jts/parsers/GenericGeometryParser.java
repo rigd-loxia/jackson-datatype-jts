@@ -1,14 +1,23 @@
 package com.bedatadriven.jackson.datatype.jts.parsers;
 
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.vividsolutions.jts.geom.Geometry;
-import com.vividsolutions.jts.geom.GeometryFactory;
+import static com.bedatadriven.jackson.datatype.jts.GeoJson.GEOMETRY_COLLECTION;
+import static com.bedatadriven.jackson.datatype.jts.GeoJson.LINE_STRING;
+import static com.bedatadriven.jackson.datatype.jts.GeoJson.MULTI_LINE_STRING;
+import static com.bedatadriven.jackson.datatype.jts.GeoJson.MULTI_POINT;
+import static com.bedatadriven.jackson.datatype.jts.GeoJson.MULTI_POLYGON;
+import static com.bedatadriven.jackson.datatype.jts.GeoJson.POINT;
+import static com.bedatadriven.jackson.datatype.jts.GeoJson.POLYGON;
+import static com.bedatadriven.jackson.datatype.jts.GeoJson.TYPE;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.bedatadriven.jackson.datatype.jts.GeoJson.*;
+import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.geom.GeometryFactory;
+
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.exc.JsonNodeException;
 
 /**
  * Created by mihaildoronin on 11/11/15.
@@ -30,14 +39,14 @@ public class GenericGeometryParser extends BaseParser implements GeometryParser<
     }
 
     @Override
-    public Geometry geometryFromJson(JsonNode node) throws JsonMappingException {
+    public Geometry geometryFromJson(JsonNode node) throws JacksonException {
         String typeName = node.get(TYPE).asText();
         GeometryParser parser = parsers.get(typeName);
         if (parser != null) {
             return parser.geometryFromJson(node);
         }
         else {
-            throw new JsonMappingException("Invalid geometry type: " + typeName);
+            throw JsonNodeException.from(node, "Invalid geometry type: " + typeName);
         }
     }
 }

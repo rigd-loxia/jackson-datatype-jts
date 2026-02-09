@@ -1,12 +1,13 @@
 package com.bedatadriven.jackson.datatype.jts.parsers;
 
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.Point;
 
 import static com.bedatadriven.jackson.datatype.jts.GeoJson.COORDINATES;
+
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.JsonNode;
 
 /**
  * Created by mihaildoronin on 11/11/15.
@@ -46,7 +47,7 @@ public class PointParser extends BaseParser implements GeometryParser<Point> {
     }
 
     @Override
-    public Point geometryFromJson(JsonNode node) throws JsonMappingException {
+    public Point geometryFromJson(JsonNode node) throws JacksonException {
         return pointFromJson(node);
     }
 }

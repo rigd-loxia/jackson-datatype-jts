@@ -1,10 +1,11 @@
 package com.bedatadriven.jackson.datatype.jts.parsers;
 
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.vividsolutions.jts.geom.*;
 
 import static com.bedatadriven.jackson.datatype.jts.GeoJson.COORDINATES;
+
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.JsonNode;
 
 /**
  * Created by mihaildoronin on 11/11/15.
@@ -37,7 +38,7 @@ public class PolygonParser extends BaseParser implements GeometryParser<Polygon>
 
 
     @Override
-    public Polygon geometryFromJson(JsonNode node) throws JsonMappingException {
+    public Polygon geometryFromJson(JsonNode node) throws JacksonException {
         return polygonFromJson(node);
     }
 }

@@ -1,12 +1,12 @@
 package com.bedatadriven.jackson.datatype.jts.parsers;
 
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.MultiPoint;
 
 import static com.bedatadriven.jackson.datatype.jts.GeoJson.COORDINATES;
+
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.JsonNode;
 
 /**
  * Created by mihaildoronin on 11/11/15.
@@ -23,7 +23,7 @@ public class MultiPointParser extends BaseParser implements GeometryParser<Multi
     }
 
     @Override
-    public MultiPoint geometryFromJson(JsonNode node) throws JsonMappingException {
+    public MultiPoint geometryFromJson(JsonNode node) throws JacksonException {
         return multiPointFromJson(node);
     }
 }
