@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.bedatadriven</groupId>
+  <groupId>nl.loxia.jts</groupId>
   <artifactId>jackson-datatype-jts</artifactId>
   <version>2.5-SNAPSHOT</version>
   <name>Jackson-datatype-jts</name>
@@ -18,36 +18,37 @@
   
   <developers>
     <developer>
-      <name>Alex Bertram</name>
-      <email>alex@bedatadriven.com</email>
-      <organization>BeDataDriven</organization>
-      <organizationUrl>https://bedatadriven.com</organizationUrl>
+      <name>RIGD Loxia</name>
+      <email>serviceexpress@rigd-loxia.nl</email>
+      <organization>RIGD Loxia</organization>
+      <organizationUrl>https://rigd-loxia.nl/</organizationUrl>
       <timezone>Europe/Amsterdam</timezone>
       <roles>
         <role>Maintainer</role>
       </roles>
     </developer>
   </developers>
-  
-  <scm>
-    <connection>scm:git:git@github.com:bedatadriven/jackson-datatype-jts.git</connection>
-    <url>scm:git:git@github.com:bedatadriven/jackson-datatype-jts.git</url>
-    <developerConnection>scm:git:git@github.com:bedatadriven/jackson-datatype-jts.git</developerConnection>
-    <tag>jackson-datatype-jts-2.0</tag>
-  </scm>
 
-  <distributionManagement>
-    <repository>
-      <id>sonatype-ossrh</id>
-      <name>Sonatype OSSRH</name>
-      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
-    </repository>
-    <snapshotRepository>
-      <id>sonatype-ossrh-snapshots</id>
-      <name>Sonatype OSSRH snapshots</name>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </snapshotRepository>
-  </distributionManagement>
+
+    <scm>
+        <connection>scm:git:git://github.com/rigd-loxia/jackson-datatype-jts.git</connection>
+        <developerConnection>scm:git:ssh://github.com:rigd-loxia/jackson-datatype-jts.git</developerConnection>
+        <url>http://github.com/rigd-loxia/jackson-datatype-jts/tree/main</url>
+    </scm>
+
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>sonatype-nexus-snapshots</id>
+            <name>Sonatype Nexus Snapshots</name>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>sonatype-nexus-staging</id>
+            <name>Nexus Release Repository</name>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2</url>
+        </repository>
+    </distributionManagement>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -152,35 +153,36 @@
 
   </build>
 
-  <profiles>
-    <profile>
-      <id>release-sign-artifacts</id>
-      <activation>
-        <property>
-          <name>performRelease</name>
-          <value>true</value>
-        </property>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.kohsuke</groupId>
-            <artifactId>pgp-maven-plugin</artifactId>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>sign</goal>
-                </goals>
-                <phase>verify</phase>
-                <configuration>
-                  <secretkey>keyfile:${env.PGP_SECRETKEY_FILE}</secretkey>
-                  <passphrase>literal:notasecret</passphrase>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
+    <profiles>
+        <profile>
+            <id>deploy</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>0.7.0</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <publishingServerId>sonatype-nexus-staging</publishingServerId>
+                            <autoPublish>true</autoPublish>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

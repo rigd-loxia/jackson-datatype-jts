@@ -2,7 +2,7 @@
 # Jackson-datatype-jts
 
 [![Build Status](https://jenkins.bedatadriven.com/job/jackson-datatype-jts/badge/icon)](https://jenkins.bedatadriven.com/job/jackson-datatype-jts/)
-[![Maven Release](https://img.shields.io/maven-central/v/com.bedatadriven/jackson-datatype-jts.svg)](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.bedatadriven%22%20AND%20a%3A%22jackson-datatype-jts%22)
+[![Maven Release](https://img.shields.io/maven-central/v/nl.loxia.jts/jackson-datatype-jts.svg)](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.bedatadriven%22%20AND%20a%3A%22jackson-datatype-jts%22)
 
 Jackson Module which provides custom serializers and deserializers for
 [JTS Geometry](http://www.vividsolutions.com/jts/javadoc/com/vividsolutions/jts/geom/Geometry.html) objects
@@ -18,7 +18,7 @@ To use the module in Maven-based projects, use following dependency:
 
 ```xml
 <dependency>
-  <groupId>com.bedatadriven</groupId>
+  <groupId>nl.loxia.jts</groupId>
   <artifactId>jackson-datatype-jts</artifactId>
   <version>2.2</version>
 </dependency>    
@@ -29,7 +29,7 @@ To use the module in Maven-based projects, use following dependency:
 
 ```gradle
 dependencies {
-    compile 'com.bedatadriven:jackson-datatype-jts:2.2'
+    compile 'nl.loxia.jts:jackson-datatype-jts:2.2'
 }
 ```
 
