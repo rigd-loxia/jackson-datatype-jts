@@ -2,8 +2,8 @@ package nl.loxia.jts.parsers;
 
 import static nl.loxia.jts.GeoJson.COORDINATES;
 
-import com.vividsolutions.jts.geom.GeometryFactory;
-import com.vividsolutions.jts.geom.LineString;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.LineString;
 
 import tools.jackson.core.JacksonException;
 import tools.jackson.databind.JsonNode;

@@ -1,10 +1,10 @@
 package nl.loxia.jts.parsers;
 
-import com.vividsolutions.jts.geom.GeometryFactory;
-import com.vividsolutions.jts.geom.LineString;
-import com.vividsolutions.jts.geom.MultiLineString;
-
 import static nl.loxia.jts.GeoJson.COORDINATES;
+
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.LineString;
+import org.locationtech.jts.geom.MultiLineString;
 
 import tools.jackson.core.JacksonException;
 import tools.jackson.databind.JsonNode;
@@ -20,7 +20,7 @@ public class MultiLineStringParser extends BaseParser implements GeometryParser<
 
     public MultiLineString multiLineStringFromJson(JsonNode root) {
         return geometryFactory.createMultiLineString(
-                lineStringsFromJson(root.get(COORDINATES)));
+            lineStringsFromJson(root.get(COORDINATES)));
     }
 
     private LineString[] lineStringsFromJson(JsonNode array) {

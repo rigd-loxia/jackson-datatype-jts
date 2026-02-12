@@ -1,10 +1,10 @@
 package nl.loxia.jts.parsers;
 
-import com.vividsolutions.jts.geom.GeometryFactory;
-import com.vividsolutions.jts.geom.MultiPolygon;
-import com.vividsolutions.jts.geom.Polygon;
-
 import static nl.loxia.jts.GeoJson.COORDINATES;
+
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.MultiPolygon;
+import org.locationtech.jts.geom.Polygon;
 
 import tools.jackson.core.JacksonException;
 import tools.jackson.databind.JsonNode;
@@ -15,6 +15,7 @@ import tools.jackson.databind.JsonNode;
 public class MultiPolygonParser extends BaseParser implements GeometryParser<MultiPolygon> {
 
     private PolygonParser helperParser;
+
     public MultiPolygonParser(GeometryFactory geometryFactory) {
         super(geometryFactory);
         helperParser = new PolygonParser(geometryFactory);

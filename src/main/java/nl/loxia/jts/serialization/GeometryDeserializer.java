@@ -1,8 +1,8 @@
 package nl.loxia.jts.serialization;
 
-import nl.loxia.jts.parsers.GeometryParser;
-import com.vividsolutions.jts.geom.Geometry;
+import org.locationtech.jts.geom.Geometry;
 
+import nl.loxia.jts.parsers.GeometryParser;
 import tools.jackson.core.JsonParser;
 import tools.jackson.databind.DeserializationContext;
 import tools.jackson.databind.JsonNode;

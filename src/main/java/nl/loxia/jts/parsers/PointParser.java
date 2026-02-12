@@ -1,10 +1,10 @@
 package nl.loxia.jts.parsers;
 
-import com.vividsolutions.jts.geom.Coordinate;
-import com.vividsolutions.jts.geom.GeometryFactory;
-import com.vividsolutions.jts.geom.Point;
-
 import static nl.loxia.jts.GeoJson.COORDINATES;
+
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.Point;
 
 import tools.jackson.core.JacksonException;
 import tools.jackson.databind.JsonNode;
@@ -19,18 +19,19 @@ public class PointParser extends BaseParser implements GeometryParser<Point> {
     }
 
     public static Coordinate coordinateFromJson(JsonNode array) {
-        assert array.isArray() && (array.size() == 2 || array.size() == 3) : "expecting coordinate array with single point [ x, y, |z| ]";
+        assert array.isArray() && (array.size() == 2
+            || array.size() == 3) : "expecting coordinate array with single point [ x, y, |z| ]";
 
         if (array.size() == 2) {
             return new Coordinate(
-                    array.get(0).asDouble(),
-                    array.get(1).asDouble());
+                array.get(0).asDouble(),
+                array.get(1).asDouble());
         }
 
         return new Coordinate(
-                array.get(0).asDouble(),
-                array.get(1).asDouble(),
-                array.get(2).asDouble());
+            array.get(0).asDouble(),
+            array.get(1).asDouble(),
+            array.get(2).asDouble());
     }
 
     public static Coordinate[] coordinatesFromJson(JsonNode array) {
@@ -43,7 +44,7 @@ public class PointParser extends BaseParser implements GeometryParser<Point> {
 
     public Point pointFromJson(JsonNode node) {
         return geometryFactory.createPoint(
-                coordinateFromJson(node.get(COORDINATES)));
+            coordinateFromJson(node.get(COORDINATES)));
     }
 
     @Override

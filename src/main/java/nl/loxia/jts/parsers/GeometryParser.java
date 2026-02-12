@@ -1,6 +1,6 @@
 package nl.loxia.jts.parsers;
 
-import com.vividsolutions.jts.geom.Geometry;
+import org.locationtech.jts.geom.Geometry;
 
 import tools.jackson.core.JacksonException;
 import tools.jackson.databind.JsonNode;

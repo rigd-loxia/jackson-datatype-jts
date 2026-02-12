@@ -1,15 +1,15 @@
 package nl.loxia.jts;
 
-import com.vividsolutions.jts.geom.Geometry;
-import com.vividsolutions.jts.geom.GeometryFactory;
-import org.junit.Before;
-import org.junit.Test;
-
-import java.io.IOException;
-
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+
+import java.io.IOException;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.GeometryFactory;
 
 import tools.jackson.databind.ObjectMapper;
 import tools.jackson.databind.ObjectWriter;
@@ -44,21 +44,20 @@ public abstract class BaseJtsModuleTest<T extends Geometry> {
 
     protected abstract T createGeometry();
 
-
     @Test
     public void shouldDeserializeConcreteType() throws Exception {
         T concreteGeometry = mapper.readValue(geometryAsGeoJson, getType());
         assertThat(
-                toJson(concreteGeometry),
-                equalTo(geometryAsGeoJson));
+            toJson(concreteGeometry),
+            equalTo(geometryAsGeoJson));
     }
 
     @Test
     public void shouldDeserializeAsInterface() throws Exception {
         assertRoundTrip(geometry);
         assertThat(
-                toJson(geometry),
-                equalTo(geometryAsGeoJson));
+            toJson(geometry),
+            equalTo(geometryAsGeoJson));
     }
 
     protected String toJson(Object value) throws IOException {

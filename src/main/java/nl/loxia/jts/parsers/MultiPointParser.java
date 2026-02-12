@@ -1,9 +1,9 @@
 package nl.loxia.jts.parsers;
 
-import com.vividsolutions.jts.geom.GeometryFactory;
-import com.vividsolutions.jts.geom.MultiPoint;
-
 import static nl.loxia.jts.GeoJson.COORDINATES;
+
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.MultiPoint;
 
 import tools.jackson.core.JacksonException;
 import tools.jackson.databind.JsonNode;
@@ -19,7 +19,7 @@ public class MultiPointParser extends BaseParser implements GeometryParser<Multi
 
     public MultiPoint multiPointFromJson(JsonNode root) {
         return geometryFactory.createMultiPoint(
-                PointParser.coordinatesFromJson(root.get(COORDINATES)));
+            PointParser.coordinatesFromJson(root.get(COORDINATES)));
     }
 
     @Override

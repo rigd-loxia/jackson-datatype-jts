@@ -1,10 +1,10 @@
 package nl.loxia.jts.parsers;
 
-import com.vividsolutions.jts.geom.Geometry;
-import com.vividsolutions.jts.geom.GeometryCollection;
-import com.vividsolutions.jts.geom.GeometryFactory;
-
 import static nl.loxia.jts.GeoJson.GEOMETRIES;
+
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.GeometryCollection;
+import org.locationtech.jts.geom.GeometryFactory;
 
 import tools.jackson.core.JacksonException;
 import tools.jackson.databind.JsonNode;
@@ -23,7 +23,7 @@ public class GeometryCollectionParser extends BaseParser implements GeometryPars
 
     private Geometry[] geometriesFromJson(JsonNode arrayOfGeoms) throws JacksonException {
         Geometry[] items = new Geometry[arrayOfGeoms.size()];
-        for(int i=0;i!=arrayOfGeoms.size();++i) {
+        for (int i = 0; i != arrayOfGeoms.size(); ++i) {
             items[i] = genericGeometriesParser.geometryFromJson(arrayOfGeoms.get(i));
         }
         return items;
@@ -32,6 +32,6 @@ public class GeometryCollectionParser extends BaseParser implements GeometryPars
     @Override
     public GeometryCollection geometryFromJson(JsonNode node) throws JacksonException {
         return geometryFactory.createGeometryCollection(
-                geometriesFromJson(node.get(GEOMETRIES)));
+            geometriesFromJson(node.get(GEOMETRIES)));
     }
 }

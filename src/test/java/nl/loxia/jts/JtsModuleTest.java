@@ -5,9 +5,8 @@ import java.io.IOException;
 import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
-
-import com.vividsolutions.jts.geom.Geometry;
-import com.vividsolutions.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.GeometryFactory;
 
 import tools.jackson.core.JacksonException;
 import tools.jackson.databind.ObjectMapper;

@@ -12,8 +12,8 @@ import static nl.loxia.jts.GeoJson.TYPE;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.vividsolutions.jts.geom.Geometry;
-import com.vividsolutions.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.GeometryFactory;
 
 import tools.jackson.core.JacksonException;
 import tools.jackson.databind.JsonNode;

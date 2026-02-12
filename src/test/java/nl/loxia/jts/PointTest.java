@@ -1,9 +1,7 @@
 package nl.loxia.jts;
 
-import com.vividsolutions.jts.geom.Coordinate;
-import com.vividsolutions.jts.geom.Point;
-
-import static org.junit.Assert.assertThat;
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.Point;
 
 /**
  * Created by mihaildoronin on 11/11/15.

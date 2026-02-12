@@ -1,8 +1,10 @@
 package nl.loxia.jts.parsers;
 
-import com.vividsolutions.jts.geom.*;
-
 import static nl.loxia.jts.GeoJson.COORDINATES;
+
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.LinearRing;
+import org.locationtech.jts.geom.Polygon;
 
 import tools.jackson.core.JacksonException;
 import tools.jackson.databind.JsonNode;
@@ -35,7 +37,6 @@ public class PolygonParser extends BaseParser implements GeometryParser<Polygon>
         assert coordinates.isArray() : "expected coordinates array";
         return geometryFactory.createLinearRing(PointParser.coordinatesFromJson(coordinates));
     }
-
 
     @Override
     public Polygon geometryFromJson(JsonNode node) throws JacksonException {
