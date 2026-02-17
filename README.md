@@ -32,7 +32,7 @@ with all Jackson datatype modules):
 
 ```java
  JsonMapper.builder()
-    .addModules(new GeoJsonModule())
+    .addModules(new JtsModule())
     .build();
 ```
 
