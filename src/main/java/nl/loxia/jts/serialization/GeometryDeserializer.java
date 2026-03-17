@@ -19,7 +19,7 @@ public class GeometryDeserializer<T extends Geometry> extends ValueDeserializer<
 
     @Override
     public T deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) {
-        JsonNode root = jsonParser.readValueAsTree();
-        return geometryParser.geometryFromJson(root);
+        var rootNode = jsonParser.<JsonNode>readValueAsTree();
+        return geometryParser.geometryFromJson(rootNode);
     }
 }
