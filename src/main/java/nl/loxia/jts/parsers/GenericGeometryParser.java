@@ -1,12 +1,5 @@
 package nl.loxia.jts.parsers;
 
-import static nl.loxia.jts.GeoJson.GEOMETRY_COLLECTION;
-import static nl.loxia.jts.GeoJson.LINE_STRING;
-import static nl.loxia.jts.GeoJson.MULTI_LINE_STRING;
-import static nl.loxia.jts.GeoJson.MULTI_POINT;
-import static nl.loxia.jts.GeoJson.MULTI_POLYGON;
-import static nl.loxia.jts.GeoJson.POINT;
-import static nl.loxia.jts.GeoJson.POLYGON;
 import static nl.loxia.jts.GeoJson.TYPE;
 
 import java.util.Map;
@@ -14,6 +7,7 @@ import java.util.Map;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;
 
+import nl.loxia.jts.GeometryTypes;
 import tools.jackson.core.JacksonException;
 import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.exc.JsonNodeException;
@@ -28,13 +22,13 @@ public class GenericGeometryParser extends BaseParser implements GeometryParser<
     public GenericGeometryParser(GeometryFactory geometryFactory) {
         super(geometryFactory);
         this.parsers = Map.of(
-            POINT, new PointParser(geometryFactory),
-            MULTI_POINT, new MultiPointParser(geometryFactory),
-            LINE_STRING, new LineStringParser(geometryFactory),
-            MULTI_LINE_STRING, new MultiLineStringParser(geometryFactory),
-            POLYGON, new PolygonParser(geometryFactory),
-            MULTI_POLYGON, new MultiPolygonParser(geometryFactory),
-            GEOMETRY_COLLECTION, new GeometryCollectionParser(geometryFactory, this)
+            GeometryTypes.POINT.getStringValue(), new PointParser(geometryFactory),
+            GeometryTypes.MULTI_POINT.getStringValue(), new MultiPointParser(geometryFactory),
+            GeometryTypes.LINE_STRING.getStringValue(), new LineStringParser(geometryFactory),
+            GeometryTypes.MULTI_LINE_STRING.getStringValue(), new MultiLineStringParser(geometryFactory),
+            GeometryTypes.POLYGON.getStringValue(), new PolygonParser(geometryFactory),
+            GeometryTypes.MULTI_POLYGON.getStringValue(), new MultiPolygonParser(geometryFactory),
+            GeometryTypes.GEOMETRY_COLLECTION.getStringValue(), new GeometryCollectionParser(geometryFactory, this)
         );
     }
 

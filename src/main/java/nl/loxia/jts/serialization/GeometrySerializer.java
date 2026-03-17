@@ -2,13 +2,6 @@ package nl.loxia.jts.serialization;
 
 import static nl.loxia.jts.GeoJson.COORDINATES;
 import static nl.loxia.jts.GeoJson.GEOMETRIES;
-import static nl.loxia.jts.GeoJson.GEOMETRY_COLLECTION;
-import static nl.loxia.jts.GeoJson.LINE_STRING;
-import static nl.loxia.jts.GeoJson.MULTI_LINE_STRING;
-import static nl.loxia.jts.GeoJson.MULTI_POINT;
-import static nl.loxia.jts.GeoJson.MULTI_POLYGON;
-import static nl.loxia.jts.GeoJson.POINT;
-import static nl.loxia.jts.GeoJson.POLYGON;
 import static nl.loxia.jts.GeoJson.TYPE;
 
 import java.util.Arrays;
@@ -22,6 +15,7 @@ import org.locationtech.jts.geom.MultiPolygon;
 import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.geom.Polygon;
 
+import nl.loxia.jts.GeometryTypes;
 import tools.jackson.core.JsonGenerator;
 import tools.jackson.databind.DatabindException;
 import tools.jackson.databind.SerializationContext;
@@ -58,7 +52,7 @@ public class GeometrySerializer extends ValueSerializer<Geometry> {
 
     private void writeGeometryCollection(JsonGenerator jsonGenerator, GeometryCollection value) {
         jsonGenerator.writeStartObject();
-        jsonGenerator.writeStringProperty(TYPE, GEOMETRY_COLLECTION);
+        jsonGenerator.writeStringProperty(TYPE, GeometryTypes.GEOMETRY_COLLECTION.getStringValue());
         jsonGenerator.writeArrayPropertyStart(GEOMETRIES);
 
         for (int i = 0; i != value.getNumGeometries(); ++i) {
@@ -71,7 +65,7 @@ public class GeometrySerializer extends ValueSerializer<Geometry> {
 
     private void writeMultiPoint(JsonGenerator jsonGenerator, MultiPoint value) {
         jsonGenerator.writeStartObject();
-        jsonGenerator.writeStringProperty(TYPE, MULTI_POINT);
+        jsonGenerator.writeStringProperty(TYPE, GeometryTypes.MULTI_POINT.getStringValue());
         jsonGenerator.writeArrayPropertyStart(COORDINATES);
 
         for (int i = 0; i != value.getNumGeometries(); ++i) {
@@ -84,7 +78,7 @@ public class GeometrySerializer extends ValueSerializer<Geometry> {
 
     private void writeMultiLineString(JsonGenerator jsonGenerator, MultiLineString value) {
         jsonGenerator.writeStartObject();
-        jsonGenerator.writeStringProperty(TYPE, MULTI_LINE_STRING);
+        jsonGenerator.writeStringProperty(TYPE, GeometryTypes.MULTI_LINE_STRING.getStringValue());
         jsonGenerator.writeArrayPropertyStart(COORDINATES);
 
         for (int i = 0; i != value.getNumGeometries(); ++i) {
@@ -102,7 +96,7 @@ public class GeometrySerializer extends ValueSerializer<Geometry> {
 
     private void writeMultiPolygon(JsonGenerator jsonGenerator, MultiPolygon value) {
         jsonGenerator.writeStartObject();
-        jsonGenerator.writeStringProperty(TYPE, MULTI_POLYGON);
+        jsonGenerator.writeStringProperty(TYPE, GeometryTypes.MULTI_POLYGON.getStringValue());
         jsonGenerator.writeArrayPropertyStart(COORDINATES);
 
         for (int i = 0; i != value.getNumGeometries(); ++i) {
@@ -115,7 +109,7 @@ public class GeometrySerializer extends ValueSerializer<Geometry> {
 
     private void writePolygon(JsonGenerator jsonGenerator, Polygon value) {
         jsonGenerator.writeStartObject();
-        jsonGenerator.writeStringProperty(TYPE, POLYGON);
+        jsonGenerator.writeStringProperty(TYPE, GeometryTypes.POLYGON.getStringValue());
         jsonGenerator.writeName(COORDINATES);
         writePolygonCoordinates(jsonGenerator, value);
 
@@ -143,7 +137,7 @@ public class GeometrySerializer extends ValueSerializer<Geometry> {
 
     private void writeLineString(JsonGenerator jsonGenerator, LineString lineString) {
         jsonGenerator.writeStartObject();
-        jsonGenerator.writeStringProperty(TYPE, LINE_STRING);
+        jsonGenerator.writeStringProperty(TYPE, GeometryTypes.LINE_STRING.getStringValue());
         jsonGenerator.writeName(COORDINATES);
         writeLineStringCoords(jsonGenerator, lineString);
         jsonGenerator.writeEndObject();
@@ -151,7 +145,7 @@ public class GeometrySerializer extends ValueSerializer<Geometry> {
 
     private void writePoint(JsonGenerator jsonGenerator, Point p) {
         jsonGenerator.writeStartObject();
-        jsonGenerator.writeStringProperty(TYPE, POINT);
+        jsonGenerator.writeStringProperty(TYPE, GeometryTypes.POINT.getStringValue());
         jsonGenerator.writeName(COORDINATES);
         writePointCoords(jsonGenerator, p);
         jsonGenerator.writeEndObject();

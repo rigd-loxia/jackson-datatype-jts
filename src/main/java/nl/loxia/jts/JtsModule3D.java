@@ -34,16 +34,16 @@ public class JtsModule3D extends SimpleModule {
 
         addSerializer(Geometry.class, new GeometrySerializer());
         GenericGeometryParser genericGeometryParser = new GenericGeometryParser(geometryFactory);
-        addDeserializer(Geometry.class, new GeometryDeserializer<Geometry>(genericGeometryParser));
-        addDeserializer(Point.class, new GeometryDeserializer<Point>(new PointParser(geometryFactory)));
-        addDeserializer(MultiPoint.class, new GeometryDeserializer<MultiPoint>(new MultiPointParser(geometryFactory)));
-        addDeserializer(LineString.class, new GeometryDeserializer<LineString>(new LineStringParser(geometryFactory)));
+        addDeserializer(Geometry.class, new GeometryDeserializer<>(genericGeometryParser));
+        addDeserializer(Point.class, new GeometryDeserializer<>(new PointParser(geometryFactory)));
+        addDeserializer(MultiPoint.class, new GeometryDeserializer<>(new MultiPointParser(geometryFactory)));
+        addDeserializer(LineString.class, new GeometryDeserializer<>(new LineStringParser(geometryFactory)));
         addDeserializer(MultiLineString.class,
-            new GeometryDeserializer<MultiLineString>(new MultiLineStringParser(geometryFactory)));
-        addDeserializer(Polygon.class, new GeometryDeserializer<Polygon>(new PolygonParser(geometryFactory)));
-        addDeserializer(MultiPolygon.class, new GeometryDeserializer<MultiPolygon>(new MultiPolygonParser(geometryFactory)));
+            new GeometryDeserializer<>(new MultiLineStringParser(geometryFactory)));
+        addDeserializer(Polygon.class, new GeometryDeserializer<>(new PolygonParser(geometryFactory)));
+        addDeserializer(MultiPolygon.class, new GeometryDeserializer<>(new MultiPolygonParser(geometryFactory)));
         addDeserializer(GeometryCollection.class,
-            new GeometryDeserializer<GeometryCollection>(new GeometryCollectionParser(geometryFactory, genericGeometryParser)));
+            new GeometryDeserializer<>(new GeometryCollectionParser(geometryFactory, genericGeometryParser)));
     }
 
     @Override
