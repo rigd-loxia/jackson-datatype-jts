@@ -1,13 +1,9 @@
 package nl.loxia.jts;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import java.io.IOException;
-
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;
 
@@ -28,7 +24,7 @@ public abstract class BaseJtsModuleTest<T extends Geometry> {
     protected BaseJtsModuleTest() {
     }
 
-    @Before
+    @BeforeEach
     public void setup() {
         mapper = JsonMapper.builder()
             .addModule(new JtsModule())
@@ -47,27 +43,23 @@ public abstract class BaseJtsModuleTest<T extends Geometry> {
     @Test
     public void shouldDeserializeConcreteType() throws Exception {
         T concreteGeometry = mapper.readValue(geometryAsGeoJson, getType());
-        assertThat(
-            toJson(concreteGeometry),
-            equalTo(geometryAsGeoJson));
+        assertThat(toJson(concreteGeometry)).isEqualTo(geometryAsGeoJson);
     }
 
     @Test
     public void shouldDeserializeAsInterface() throws Exception {
         assertRoundTrip(geometry);
-        assertThat(
-            toJson(geometry),
-            equalTo(geometryAsGeoJson));
+        assertThat(toJson(geometry)).isEqualTo(geometryAsGeoJson);
     }
 
-    protected String toJson(Object value) throws IOException {
+    protected String toJson(Object value) {
         return writer.writeValueAsString(value);
     }
 
-    protected void assertRoundTrip(T geom) throws IOException {
+    protected void assertRoundTrip(T geom) {
         String json = writer.writeValueAsString(geom);
         System.out.println(json);
         Geometry regeom = mapper.readValue(json, Geometry.class);
-        assertThat(geom.equalsExact(regeom), is(true));
+        assertThat(geom.equalsExact(regeom)).isTrue();
     }
 }
