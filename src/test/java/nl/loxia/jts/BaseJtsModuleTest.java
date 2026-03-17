@@ -21,9 +21,6 @@ public abstract class BaseJtsModuleTest<T extends Geometry> {
     private T geometry;
     private String geometryAsGeoJson;
 
-    protected BaseJtsModuleTest() {
-    }
-
     @BeforeEach
     public void setup() {
         mapper = JsonMapper.builder()
@@ -41,13 +38,13 @@ public abstract class BaseJtsModuleTest<T extends Geometry> {
     protected abstract T createGeometry();
 
     @Test
-    public void shouldDeserializeConcreteType() throws Exception {
+    public void shouldDeserializeConcreteType() {
         T concreteGeometry = mapper.readValue(geometryAsGeoJson, getType());
         assertThat(toJson(concreteGeometry)).isEqualTo(geometryAsGeoJson);
     }
 
     @Test
-    public void shouldDeserializeAsInterface() throws Exception {
+    public void shouldDeserializeAsInterface() {
         assertRoundTrip(geometry);
         assertThat(toJson(geometry)).isEqualTo(geometryAsGeoJson);
     }

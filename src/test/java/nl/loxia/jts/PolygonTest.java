@@ -15,7 +15,8 @@ public class PolygonTest extends BaseJtsModuleTest<Polygon> {
 
     @Override
     protected String createGeometryAsGeoJson() {
-        return "{\"type\":\"Polygon\",\"coordinates\":[[[102.0,2.0],[103.0,2.0],[103.0,3.0],[102.0,3.0],[102.0,2.0]]]}";
+        return """
+            {"type":"Polygon","coordinates":[[[102.0,2.0],[103.0,2.0],[103.0,3.0],[102.0,3.0],[102.0,2.0]]]}""";
     }
 
     @Override

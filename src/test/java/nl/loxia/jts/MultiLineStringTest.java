@@ -15,7 +15,8 @@ public class MultiLineStringTest extends BaseJtsModuleTest<MultiLineString> {
 
     @Override
     protected String createGeometryAsGeoJson() {
-        return "{\"type\":\"MultiLineString\",\"coordinates\":[[[100.0,0.0],[101.0,1.0]],[[102.0,2.0],[103.0,3.0]]]}";
+        return """
+            {"type":"MultiLineString","coordinates":[[[100.0,0.0],[101.0,1.0]],[[102.0,2.0],[103.0,3.0]]]}""";
     }
 
     @Override

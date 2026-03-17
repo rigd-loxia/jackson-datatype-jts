@@ -23,13 +23,14 @@ public class JtsModuleTest {
 
     @Test
     public void invalidGeometryType() {
-        String json = "{\"type\":\"Singularity\",\"coordinates\":[]}";
+        var json = """
+            {"type":"Singularity","coordinates":[]}""";
         assertThrows(JacksonException.class, () -> mapper.readValue(json, Geometry.class));
     }
 
     @Test
     public void unsupportedGeometry() {
-        Geometry unsupportedGeometry = EasyMock.createNiceMock("NonEuclideanGeometry", Geometry.class);
+        var unsupportedGeometry = EasyMock.createNiceMock("NonEuclideanGeometry", Geometry.class);
         EasyMock.replay(unsupportedGeometry);
 
         assertThrows(JacksonException.class, () -> mapper.writeValue(System.out, unsupportedGeometry));

@@ -16,7 +16,8 @@ public class MultiPolygonTest extends BaseJtsModuleTest<MultiPolygon> {
 
     @Override
     protected String createGeometryAsGeoJson() {
-        return "{\"type\":\"MultiPolygon\",\"coordinates\":[[[[102.0,2.0],[103.0,2.0],[103.0,3.0],[102.0,3.0],[102.0,2.0]]]]}";
+        return """
+            {"type":"MultiPolygon","coordinates":[[[[102.0,2.0],[103.0,2.0],[103.0,3.0],[102.0,3.0],[102.0,2.0]]]]}""";
     }
 
     @Override

@@ -15,7 +15,8 @@ public class PolygonWithHolesTest extends BaseJtsModuleTest<Polygon> {
 
     @Override
     protected String createGeometryAsGeoJson() {
-        return "{\"type\":\"Polygon\",\"coordinates\":[[[102.0,2.0],[103.0,2.0],[103.0,3.0],[102.0,3.0],[102.0,2.0]],[[100.2,0.2],[100.8,0.2],[100.8,0.8],[100.2,0.8],[100.2,0.2]]]}";
+        return """
+            {"type":"Polygon","coordinates":[[[102.0,2.0],[103.0,2.0],[103.0,3.0],[102.0,3.0],[102.0,2.0]],[[100.2,0.2],[100.8,0.2],[100.8,0.8],[100.2,0.8],[100.2,0.2]]]}""";
     }
 
     @Override
