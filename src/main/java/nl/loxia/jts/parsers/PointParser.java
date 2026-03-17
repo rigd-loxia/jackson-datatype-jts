@@ -19,32 +19,28 @@ public class PointParser extends BaseParser implements GeometryParser<Point> {
     }
 
     public static Coordinate coordinateFromJson(JsonNode array) {
-        assert array.isArray() && (array.size() == 2
-            || array.size() == 3) : "expecting coordinate array with single point [ x, y, |z| ]";
-
-        if (array.size() == 2) {
-            return new Coordinate(
+        return switch (array.size()) {
+            case 2 -> new Coordinate(
                 array.get(0).asDouble(),
                 array.get(1).asDouble());
-        }
-
-        return new Coordinate(
-            array.get(0).asDouble(),
-            array.get(1).asDouble(),
-            array.get(2).asDouble());
+            case 3 -> new Coordinate(
+                array.get(0).asDouble(),
+                array.get(1).asDouble(),
+                array.get(2).asDouble());
+            default -> throw new IllegalArgumentException("expecting coordinate array with single point [ x, y, |z| ]");
+        };
     }
 
     public static Coordinate[] coordinatesFromJson(JsonNode array) {
-        Coordinate[] points = new Coordinate[array.size()];
-        for (int i = 0; i != array.size(); ++i) {
-            points[i] = PointParser.coordinateFromJson(array.get(i));
-        }
-        return points;
+        return array.valueStream()
+            .map(PointParser::coordinateFromJson)
+            .toArray(Coordinate[]::new);
     }
 
     public Point pointFromJson(JsonNode node) {
         return geometryFactory.createPoint(
-            coordinateFromJson(node.get(COORDINATES)));
+            coordinateFromJson(node.get(COORDINATES))
+        );
     }
 
     @Override

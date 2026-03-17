@@ -14,24 +14,23 @@ import tools.jackson.databind.JsonNode;
  */
 public class GeometryCollectionParser extends BaseParser implements GeometryParser<GeometryCollection> {
 
-    private GenericGeometryParser genericGeometriesParser;
+    private final GenericGeometryParser genericGeometriesParser;
 
     public GeometryCollectionParser(GeometryFactory geometryFactory, GenericGeometryParser genericGeometriesParser) {
         super(geometryFactory);
         this.genericGeometriesParser = genericGeometriesParser;
     }
 
-    private Geometry[] geometriesFromJson(JsonNode arrayOfGeoms) throws JacksonException {
-        Geometry[] items = new Geometry[arrayOfGeoms.size()];
-        for (int i = 0; i < arrayOfGeoms.size(); ++i) {
-            items[i] = genericGeometriesParser.geometryFromJson(arrayOfGeoms.get(i));
-        }
-        return items;
-    }
-
     @Override
     public GeometryCollection geometryFromJson(JsonNode node) throws JacksonException {
         return geometryFactory.createGeometryCollection(
-            geometriesFromJson(node.get(GEOMETRIES)));
+            geometriesFromJson(node.get(GEOMETRIES))
+        );
+    }
+
+    private Geometry[] geometriesFromJson(JsonNode arrayOfGeometries) throws JacksonException {
+        return arrayOfGeometries.valueStream()
+            .map(genericGeometriesParser::geometryFromJson)
+            .toArray(Geometry[]::new);
     }
 }

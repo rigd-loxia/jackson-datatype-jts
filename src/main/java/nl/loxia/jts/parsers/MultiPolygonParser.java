@@ -14,28 +14,27 @@ import tools.jackson.databind.JsonNode;
  */
 public class MultiPolygonParser extends BaseParser implements GeometryParser<MultiPolygon> {
 
-    private PolygonParser helperParser;
+    private final PolygonParser helperParser;
 
     public MultiPolygonParser(GeometryFactory geometryFactory) {
         super(geometryFactory);
-        helperParser = new PolygonParser(geometryFactory);
+        this.helperParser = new PolygonParser(geometryFactory);
     }
 
     public MultiPolygon multiPolygonFromJson(JsonNode root) {
-        JsonNode arrayOfPolygons = root.get(COORDINATES);
-        return geometryFactory.createMultiPolygon(polygonsFromJson(arrayOfPolygons));
-    }
-
-    private Polygon[] polygonsFromJson(JsonNode arrayOfPolygons) {
-        Polygon[] polygons = new Polygon[arrayOfPolygons.size()];
-        for (int i = 0; i != arrayOfPolygons.size(); ++i) {
-            polygons[i] = helperParser.polygonFromJsonArrayOfRings(arrayOfPolygons.get(i));
-        }
-        return polygons;
+        return geometryFactory.createMultiPolygon(
+            polygonsFromJson(root.get(COORDINATES))
+        );
     }
 
     @Override
     public MultiPolygon geometryFromJson(JsonNode node) throws JacksonException {
         return multiPolygonFromJson(node);
+    }
+
+    private Polygon[] polygonsFromJson(JsonNode arrayOfPolygons) {
+        return arrayOfPolygons.valueStream()
+            .map(helperParser::polygonFromJsonArrayOfRings)
+            .toArray(Polygon[]::new);
     }
 }

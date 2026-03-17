@@ -9,7 +9,6 @@ import static nl.loxia.jts.GeoJson.POINT;
 import static nl.loxia.jts.GeoJson.POLYGON;
 import static nl.loxia.jts.GeoJson.TYPE;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.locationtech.jts.geom.Geometry;
@@ -24,26 +23,27 @@ import tools.jackson.databind.exc.JsonNodeException;
  */
 public class GenericGeometryParser extends BaseParser implements GeometryParser<Geometry> {
 
-    private Map<String, GeometryParser> parsers;
+    private final Map<String, GeometryParser<?>> parsers;
 
     public GenericGeometryParser(GeometryFactory geometryFactory) {
         super(geometryFactory);
-        parsers = new HashMap<String, GeometryParser>();
-        parsers.put(POINT, new PointParser(geometryFactory));
-        parsers.put(MULTI_POINT, new MultiPointParser(geometryFactory));
-        parsers.put(LINE_STRING, new LineStringParser(geometryFactory));
-        parsers.put(MULTI_LINE_STRING, new MultiLineStringParser(geometryFactory));
-        parsers.put(POLYGON, new PolygonParser(geometryFactory));
-        parsers.put(MULTI_POLYGON, new MultiPolygonParser(geometryFactory));
-        parsers.put(GEOMETRY_COLLECTION, new GeometryCollectionParser(geometryFactory, this));
+        this.parsers = Map.of(
+            POINT, new PointParser(geometryFactory),
+            MULTI_POINT, new MultiPointParser(geometryFactory),
+            LINE_STRING, new LineStringParser(geometryFactory),
+            MULTI_LINE_STRING, new MultiLineStringParser(geometryFactory),
+            POLYGON, new PolygonParser(geometryFactory),
+            MULTI_POLYGON, new MultiPolygonParser(geometryFactory),
+            GEOMETRY_COLLECTION, new GeometryCollectionParser(geometryFactory, this)
+        );
     }
 
     @Override
     public Geometry geometryFromJson(JsonNode node) throws JacksonException {
-        String typeName = node.get(TYPE).asText();
-        GeometryParser parser = parsers.get(typeName);
-        if (parser != null) {
-            return parser.geometryFromJson(node);
+        var typeName = node.get(TYPE).asString();
+        var geometryParser = parsers.get(typeName);
+        if (geometryParser != null) {
+            return geometryParser.geometryFromJson(node);
         }
         else {
             throw JsonNodeException.from(node, "Invalid geometry type: " + typeName);
