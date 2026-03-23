@@ -14,7 +14,8 @@ public class LineStringTest extends BaseJtsModuleTest<LineString> {
 
     @Override
     protected String createGeometryAsGeoJson() {
-        return "{\"type\":\"LineString\",\"coordinates\":[[100.0,0.0],[101.0,1.0]]}";
+        return """
+            {"type":"LineString","coordinates":[[100.0,0.0],[101.0,1.0]]}""";
     }
 
     @Override

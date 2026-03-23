@@ -15,7 +15,8 @@ public class MultiPointTest extends BaseJtsModuleTest<MultiPoint> {
 
     @Override
     protected String createGeometryAsGeoJson() {
-        return "{\"type\":\"MultiPoint\",\"coordinates\":[[1.2345678,2.3456789]]}";
+        return """
+            {"type":"MultiPoint","coordinates":[[1.2345678,2.3456789]]}""";
     }
 
     @Override

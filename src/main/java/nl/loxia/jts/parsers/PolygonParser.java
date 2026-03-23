@@ -19,27 +19,26 @@ public class PolygonParser extends BaseParser implements GeometryParser<Polygon>
     }
 
     public Polygon polygonFromJson(JsonNode node) {
-        JsonNode arrayOfRings = node.get(COORDINATES);
-        return polygonFromJsonArrayOfRings(arrayOfRings);
+        return polygonFromJsonArrayOfRings(node.get(COORDINATES));
     }
 
     public Polygon polygonFromJsonArrayOfRings(JsonNode arrayOfRings) {
-        LinearRing shell = linearRingsFromJson(arrayOfRings.get(0));
-        int size = arrayOfRings.size();
-        LinearRing[] holes = new LinearRing[size - 1];
-        for (int i = 1; i < size; i++) {
-            holes[i - 1] = linearRingsFromJson(arrayOfRings.get(i));
-        }
-        return geometryFactory.createPolygon(shell, holes);
-    }
+        var shell = linearRingsFromJson(arrayOfRings.get(0));
+        var holes = arrayOfRings.valueStream()
+            .skip(1) //Skip the first one, which is the shell
+            .map(this::linearRingsFromJson)
+            .toArray(LinearRing[]::new);
 
-    private LinearRing linearRingsFromJson(JsonNode coordinates) {
-        assert coordinates.isArray() : "expected coordinates array";
-        return geometryFactory.createLinearRing(PointParser.coordinatesFromJson(coordinates));
+        return geometryFactory.createPolygon(shell, holes);
     }
 
     @Override
     public Polygon geometryFromJson(JsonNode node) throws JacksonException {
         return polygonFromJson(node);
+    }
+
+    private LinearRing linearRingsFromJson(JsonNode coordinates) {
+        assert coordinates.isArray() : "expected coordinates array";
+        return geometryFactory.createLinearRing(PointParser.coordinatesFromJson(coordinates));
     }
 }

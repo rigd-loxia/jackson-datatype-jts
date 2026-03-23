@@ -15,7 +15,8 @@ public class D3DPointTest extends BaseJtsModuleTest<Point> {
 
     @Override
     protected String createGeometryAsGeoJson() {
-        return "{\"type\":\"Point\",\"coordinates\":[1.2345678,2.3456789,200.0]}";
+        return """
+            {"type":"Point","coordinates":[1.2345678,2.3456789,200.0]}""";
     }
 
     @Override
