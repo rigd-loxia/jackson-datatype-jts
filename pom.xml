@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>nl.loxia.jts</groupId>
     <artifactId>jackson-datatype-jts</artifactId>
-    <version>0.0.3</version>
+    <version>1.0.0</version>
     <name>Jackson-datatype-jts</name>
     <description>Add-on module for Jackson  to support JTS geometry types using the GeoJSON standard.</description>
     <url>https://github.com/rigd-loxia/jackson-datatype-jts/</url>
