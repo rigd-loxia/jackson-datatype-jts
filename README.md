@@ -19,7 +19,7 @@ To use the module in Maven-based projects, use following dependency:
 <dependency>
   <groupId>nl.loxia.jts</groupId>
   <artifactId>jackson-datatype-jts</artifactId>
-  <version>0.0.3</version>
+  <version>1.0.0</version>
 </dependency>    
 ```
 
